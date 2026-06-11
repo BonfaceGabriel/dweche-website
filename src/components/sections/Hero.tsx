@@ -121,8 +121,7 @@ export default function Hero() {
             <span className="text-gradient-primary">Software</span>
             <br />
             That Moves{" "}
-            <span className="text-gradient-blue">Africa</span>
-            <span className="text-blue-500">.</span>
+            <span className="text-gradient-blue">Africa</span>{" "}
             <span className="text-surface-900">Forward</span>
           </motion.h1>
 
