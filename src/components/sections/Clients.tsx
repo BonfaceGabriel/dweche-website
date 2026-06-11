@@ -39,7 +39,7 @@ export default function Clients() {
                     <Image
                       key={`${set}-${i}`}
                       src={src}
-                      alt={`Client logo ${i + 1}`}
+                      alt={`Client logo ${i + 1} — trusted by Dweche Africa`}
                       width={140}
                       height={140}
                       className="h-20 w-auto object-contain"

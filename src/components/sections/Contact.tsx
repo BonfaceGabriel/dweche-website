@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 export default function Contact() {
   return (
     <section id="contact" className="relative py-16 lg:py-20 bg-white overflow-hidden">
-      <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-glow-blue pointer-events-none" />
-      <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-glow-green pointer-events-none" />
+      <div aria-hidden="true" className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-glow-blue pointer-events-none" />
+      <div aria-hidden="true" className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-glow-green pointer-events-none" />
       <div className="absolute inset-0 bg-grid opacity-20" />
       <div className="max-w-site mx-auto px-6 lg:px-8">
         <motion.div

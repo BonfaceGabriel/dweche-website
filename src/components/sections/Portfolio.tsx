@@ -93,7 +93,7 @@ function TiltedStack({ url, images }: { url: string; images: ReturnType<typeof r
           </div>
           <Image
             src={img}
-            alt={`Eagleshop ${i === 0 ? "Analytics" : i === 1 ? "Merchandise" : "Reports"}`}
+            alt={`BF SUMA Eagleshop ${i === 0 ? "Analytics dashboard" : i === 1 ? "Merchandise management" : "Reports dashboard"} — retail software by Dweche Africa`}
             className="w-full h-full object-cover"
           />
         </motion.div>
@@ -193,7 +193,7 @@ export default function Portfolio() {
                   >
                     <Image
                       src={project.image!}
-                      alt={`${project.title} website screenshot`}
+                      alt={`${project.title} — ${project.category} software platform built by Dweche Africa`}
                       className="w-full h-full object-cover sm:group-hover:scale-105 transition-transform duration-700"
                     />
                   </a>

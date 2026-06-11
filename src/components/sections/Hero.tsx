@@ -106,7 +106,7 @@ export default function Hero() {
 
       <div className="absolute inset-0 bg-grid" style={{ zIndex: 0 }} />
       <div className="absolute top-0 left-0 right-0 h-96 bg-gradient-to-b from-blue-500/10 to-transparent pointer-events-none" style={{ zIndex: 0 }} />
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-glow-blue pointer-events-none" style={{ zIndex: 0 }} />
+      <div aria-hidden="true" className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-glow-blue pointer-events-none" style={{ zIndex: 0 }} />
       <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-white to-transparent pointer-events-none" style={{ zIndex: 2 }} />
 
       <div className="relative z-10 max-w-site mx-auto px-6 lg:px-8 pt-32 pb-24 w-full">
