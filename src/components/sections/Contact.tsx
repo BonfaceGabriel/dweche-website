@@ -1,13 +1,23 @@
 "use client";
 
-import { useActionState } from "react";
+import { useRef, useEffect, useActionState } from "react";
 import { motion } from "framer-motion";
 import { contactAction, type FormState } from "@/actions/contact";
 
 const initialState: FormState = { success: false, message: "" };
 
+const inputClass =
+  "w-full px-5 py-3.5 rounded-xl bg-surface-50 border border-surface-300 text-surface-900 placeholder:text-surface-400 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300";
+
 export default function Contact() {
   const [state, formAction, pending] = useActionState(contactAction, initialState);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (state.success) {
+      formRef.current?.reset();
+    }
+  }, [state.success]);
 
   return (
     <section id="contact" className="relative py-16 lg:py-20 bg-white overflow-hidden">
@@ -47,17 +57,27 @@ export default function Contact() {
             {[
               {
                 label: "Email",
-                value: "hello@dwecheafrica.com",
-                href: "mailto:hello@dwecheafrica.com",
+                value: "hello@dweche.africa",
+                href: "mailto:hello@dweche.africa",
               },
               {
                 label: "Phone",
-                value: "+254 700 123 456",
-                href: "tel:+254700123456",
+                value: "0745 477 610",
+                href: "tel:+254745477610",
               },
               {
                 label: "Location",
                 value: "Nairobi, Kenya\nLagos, Nigeria\nKigali, Rwanda",
+              },
+              {
+                label: "LinkedIn",
+                value: "Dweche Africa",
+                href: "https://linkedin.com/company/dweche-africa",
+              },
+              {
+                label: "Instagram",
+                value: "@dweche_africa",
+                href: "https://instagram.com/dweche_africa",
               },
             ].map((item) => (
               <div key={item.label}>
@@ -67,6 +87,8 @@ export default function Contact() {
                 {item.href ? (
                   <a
                     href={item.href}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     className="text-surface-900 hover:text-blue-600 transition-colors duration-200"
                   >
                     {item.value}
@@ -81,43 +103,42 @@ export default function Contact() {
           </motion.div>
 
           <motion.form
+            ref={formRef}
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-3 space-y-5"
+            className="relative lg:col-span-3 space-y-5"
             action={formAction}
           >
-            <div
-              aria-hidden="true"
-              className="absolute opacity-0 pointer-events-none"
-            >
-              <input
-                type="text"
-                name="website"
-                tabIndex={-1}
-                autoComplete="off"
-              />
+            <div aria-hidden="true" className="absolute opacity-0 pointer-events-none">
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" />
             </div>
 
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
+                <label htmlFor="name" className="sr-only">Your name</label>
                 <input
+                  id="name"
                   type="text"
                   name="name"
-                  placeholder="Full Name"
-                  className="w-full px-5 py-3.5 rounded-xl bg-surface-50 border border-surface-200 text-surface-900 placeholder:text-surface-400 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300"
+                  placeholder="Your name"
+                  autoComplete="name"
+                  className={inputClass}
                 />
                 {state.errors?.name && (
                   <p className="mt-1 text-xs text-red-500">{state.errors.name}</p>
                 )}
               </div>
               <div>
+                <label htmlFor="email" className="sr-only">Email address</label>
                 <input
+                  id="email"
                   type="email"
                   name="email"
-                  placeholder="Email Address"
-                  className="w-full px-5 py-3.5 rounded-xl bg-surface-50 border border-surface-300 text-surface-900 placeholder:text-surface-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300"
+                  placeholder="Email address"
+                  autoComplete="email"
+                  className={inputClass}
                 />
                 {state.errors?.email && (
                   <p className="mt-1 text-xs text-red-500">{state.errors.email}</p>
@@ -125,36 +146,39 @@ export default function Contact() {
               </div>
             </div>
             <div>
+              <label htmlFor="subject" className="sr-only">Subject</label>
               <input
+                id="subject"
                 type="text"
                 name="subject"
                 placeholder="Subject"
-                className="w-full px-5 py-3.5 rounded-xl bg-surface-50 border border-surface-300 text-surface-900 placeholder:text-surface-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300"
+                className={inputClass}
               />
               {state.errors?.subject && (
                 <p className="mt-1 text-xs text-red-500">{state.errors.subject}</p>
               )}
             </div>
             <div>
+              <label htmlFor="message" className="sr-only">Message</label>
               <textarea
+                id="message"
                 name="message"
                 rows={5}
-                placeholder="Tell us about your project"
-                className="w-full px-5 py-3.5 rounded-xl bg-surface-50 border border-surface-300 text-surface-900 placeholder:text-surface-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300 resize-none"
+                placeholder="Tell us about your project, your goals, and how we can help"
+                className={`${inputClass} resize-none`}
               />
               {state.errors?.message && (
                 <p className="mt-1 text-xs text-red-500">{state.errors.message}</p>
               )}
             </div>
 
-            {state.message && (
-              <div
-                className={`px-4 py-3 rounded-xl text-sm ${
-                  state.success
-                    ? "bg-green-50 text-green-700 border border-green-200"
-                    : "bg-red-50 text-red-700 border border-red-200"
-                }`}
-              >
+            {state.success && state.message && (
+              <div className="px-4 py-3 rounded-xl text-sm bg-green-50 text-green-700 border border-green-200">
+                {state.message}
+              </div>
+            )}
+            {!state.success && state.message && !state.errors && (
+              <div className="px-4 py-3 rounded-xl text-sm bg-red-50 text-red-700 border border-red-200">
                 {state.message}
               </div>
             )}
