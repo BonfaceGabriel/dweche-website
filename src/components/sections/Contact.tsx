@@ -1,8 +1,14 @@
 "use client";
 
+import { useActionState } from "react";
 import { motion } from "framer-motion";
+import { contactAction, type FormState } from "@/actions/contact";
+
+const initialState: FormState = { success: false, message: "" };
 
 export default function Contact() {
+  const [state, formAction, pending] = useActionState(contactAction, initialState);
+
   return (
     <section id="contact" className="relative py-16 lg:py-20 bg-white overflow-hidden">
       <div aria-hidden="true" className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-glow-blue pointer-events-none" />
@@ -80,43 +86,106 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="lg:col-span-3 space-y-5"
-            onSubmit={(e) => e.preventDefault()}
+            action={formAction}
           >
+            <div
+              aria-hidden="true"
+              className="absolute opacity-0 pointer-events-none"
+            >
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <input
                   type="text"
+                  name="name"
                   placeholder="Full Name"
                   className="w-full px-5 py-3.5 rounded-xl bg-surface-50 border border-surface-200 text-surface-900 placeholder:text-surface-400 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300"
                 />
+                {state.errors?.name && (
+                  <p className="mt-1 text-xs text-red-500">{state.errors.name}</p>
+                )}
               </div>
               <div>
                 <input
                   type="email"
+                  name="email"
                   placeholder="Email Address"
                   className="w-full px-5 py-3.5 rounded-xl bg-surface-50 border border-surface-300 text-surface-900 placeholder:text-surface-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300"
                 />
+                {state.errors?.email && (
+                  <p className="mt-1 text-xs text-red-500">{state.errors.email}</p>
+                )}
               </div>
             </div>
             <div>
               <input
                 type="text"
+                name="subject"
                 placeholder="Subject"
                 className="w-full px-5 py-3.5 rounded-xl bg-surface-50 border border-surface-300 text-surface-900 placeholder:text-surface-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300"
               />
+              {state.errors?.subject && (
+                <p className="mt-1 text-xs text-red-500">{state.errors.subject}</p>
+              )}
             </div>
             <div>
               <textarea
+                name="message"
                 rows={5}
                 placeholder="Tell us about your project"
                 className="w-full px-5 py-3.5 rounded-xl bg-surface-50 border border-surface-300 text-surface-900 placeholder:text-surface-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300 resize-none"
               />
+              {state.errors?.message && (
+                <p className="mt-1 text-xs text-red-500">{state.errors.message}</p>
+              )}
             </div>
+
+            {state.message && (
+              <div
+                className={`px-4 py-3 rounded-xl text-sm ${
+                  state.success
+                    ? "bg-green-50 text-green-700 border border-green-200"
+                    : "bg-red-50 text-red-700 border border-red-200"
+                }`}
+              >
+                {state.message}
+              </div>
+            )}
+
             <button
               type="submit"
-              className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 hover:shadow-primary text-sm tracking-wide"
+              disabled={pending}
+              className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 hover:shadow-primary text-sm tracking-wide disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2"
             >
-              Send Message
+              {pending && (
+                <svg
+                  className="animate-spin h-4 w-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  />
+                </svg>
+              )}
+              {pending ? "Sending..." : "Send Message"}
             </button>
           </motion.form>
         </div>
