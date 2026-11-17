@@ -278,7 +278,6 @@ export default function RootLayout({
         <meta name="application-name" content="Dweche Africa" />
         <meta name="msapplication-TileColor" content="#2563EB" />
         <meta name="theme-color" content="#2563EB" />
-        <link rel="canonical" href={siteUrl} />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon.png" />
