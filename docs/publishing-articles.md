@@ -31,8 +31,18 @@ article has a title, description, canonical URL, and generated 1200 × 630 previ
 image. Use LinkedIn's Post Inspector to fetch or refresh its cached preview:
 https://www.linkedin.com/post-inspector/
 
-The article's **Share on LinkedIn** link also opens LinkedIn's sharing page. You
-remain in control of writing and publishing the LinkedIn post.
+The article's **Share on LinkedIn** button opens a dialog with an article preview
+and an editable draft. Add an optional `linkedinPost: |` field to the Markdown
+header, with each following line indented by two spaces, to provide a tailored
+plain-text post (see the template). Without it, the title and summary are used.
+The article URL is appended if it is not already present.
+
+Click **Copy post & open LinkedIn** in the dialog, then paste into LinkedIn and
+make your final edits before publishing. LinkedIn's sharing URL does not prefill
+post text. The dialog preview is illustrative; LinkedIn fetches its own preview.
+If clipboard access or a new tab is blocked, the dialog provides manual copying
+instructions and an **Open LinkedIn** link. Edits in the dialog last until the
+page is left and do not change the stored article. Nothing is posted automatically.
 
 ## Writing and checks
 
