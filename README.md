@@ -1,5 +1,17 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Brand assets
+
+The supplied official artwork is preserved in `src/assets/brand/logo-original.png`.
+The shared `src/components/BrandLogo.tsx` displays it in the header and footer.
+
+Run `npm run brand:assets` to regenerate the cropped wordmark, 1200 × 630 sharing
+image, browser icons, and Apple icon. The script uses the original pixels, with
+fixed crop coordinates for this source artwork; review those coordinates if the
+source image is replaced. Browser icons use the W and its network detail so the
+mark remains recognisable at small sizes. Commit the generated files together
+with any source or script changes.
+
 ## Getting Started
 
 First, run the development server:

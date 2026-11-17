@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import BrandLogo from "@/components/BrandLogo";
 
 export default function Footer() {
   return (
@@ -8,14 +9,9 @@ export default function Footer() {
       <div className="max-w-site mx-auto px-6 lg:px-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <div className="sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-lg font-semibold tracking-tight font-[family-name:var(--font-heading)] text-surface-900">
-                Dweche
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.2em] text-blue-600">
-                Africa
-              </span>
-            </div>
+            <Link href="/" aria-label="Dweche Africa home" className="mb-4 inline-flex rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600">
+              <BrandLogo />
+            </Link>
             <p className="text-sm text-surface-600 leading-relaxed max-w-xs">
               Engineering world-class software solutions that power African
               enterprise and drive digital transformation across the continent.
