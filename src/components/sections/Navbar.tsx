@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 
 const navLinks = [
@@ -10,13 +11,18 @@ const navLinks = [
   { label: "About", href: "#about", id: "about" },
   { label: "Process", href: "#process", id: "process" },
   { label: "Work", href: "#work", id: "work" },
+  { label: "Articles", href: "/articles", id: "articles" },
   { label: "Contact", href: "#contact", id: "contact" },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const activeId = isHome ? activeSection : pathname.startsWith("/articles") ? "articles" : "";
+  const linkHref = (href: string) => href.startsWith("#") && !isHome ? `/${href}` : href;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -25,7 +31,8 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const ids = navLinks.map((l) => l.id);
+    if (!isHome) return;
+    const ids = navLinks.filter((link) => link.href.startsWith("#")).map((link) => link.id);
     const observers: IntersectionObserver[] = [];
 
     ids.forEach((id) => {
@@ -42,7 +49,7 @@ export default function Navbar() {
     });
 
     return () => observers.forEach((o) => o.disconnect());
-  }, []);
+  }, [isHome]);
 
   return (
     <motion.header
@@ -50,14 +57,14 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
+        scrolled || !isHome
           ? "bg-white/85 backdrop-blur-xl border-b border-surface-200 shadow-sm"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-site mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 lg:h-24">
-          <a href="#home" className="flex items-center gap-3 group">
+          <a href={linkHref("#home")} className="flex items-center gap-3 group">
             <span className="text-xl font-semibold tracking-tight font-[family-name:var(--font-heading)] text-surface-900">
               Dweche
             </span>
@@ -70,9 +77,10 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
+                href={linkHref(link.href)}
+                aria-current={activeId === link.id ? (isHome ? "location" : "page") : undefined}
                 className={`px-4 py-2 text-sm transition-colors duration-300 relative group ${
-                  activeSection === link.id
+                  activeId === link.id
                     ? "text-blue-600"
                     : "text-surface-700 hover:text-surface-900"
                 }`}
@@ -80,13 +88,13 @@ export default function Navbar() {
                 {link.label}
                 <span
                   className={`absolute bottom-0 left-4 right-4 h-[1px] bg-blue-500 transition-transform duration-300 origin-left ${
-                    activeSection === link.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    activeId === link.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                   }`}
                 />
               </a>
             ))}
             <a
-              href="#contact"
+              href={linkHref("#contact")}
               className="ml-4 px-6 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300 hover:shadow-primary-sm"
             >
               Get in Touch
@@ -127,13 +135,14 @@ export default function Navbar() {
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
-                  href={link.href}
+                  href={linkHref(link.href)}
+                  aria-current={activeId === link.id ? (isHome ? "location" : "page") : undefined}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
                   onClick={() => setMobileOpen(false)}
                   className={`px-4 py-3 rounded-lg transition-all duration-200 ${
-                    activeSection === link.id
+                    activeId === link.id
                       ? "text-blue-600 bg-blue-50 font-medium"
                       : "text-surface-700 hover:text-surface-900 hover:bg-surface-100"
                   }`}
@@ -142,7 +151,7 @@ export default function Navbar() {
                 </motion.a>
               ))}
               <a
-                href="#contact"
+                href={linkHref("#contact")}
                 onClick={() => setMobileOpen(false)}
                 className="mt-2 px-6 py-3 bg-blue-600 text-white text-center font-semibold rounded-lg hover:bg-blue-700 transition-all"
               >

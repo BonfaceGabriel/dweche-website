@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="relative border-t border-surface-200 bg-white py-16 lg:py-20">
@@ -33,12 +35,12 @@ export default function Footer() {
                 "Digital Transformation",
               ].map((item) => (
                 <li key={item}>
-                  <a
-                    href="#services"
+                  <Link
+                    href="/#services"
                     className="text-sm text-surface-500 hover:text-surface-900 transition-colors duration-200"
                   >
                     {item}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -49,14 +51,14 @@ export default function Footer() {
               Company
             </h4>
             <ul className="space-y-3">
-              {["About", "Process", "Work", "Careers", "Blog"].map((item) => (
+              {["About", "Process", "Work", "Careers", "Articles"].map((item) => (
                 <li key={item}>
-                  <a
-                    href={`#${item.toLowerCase()}`}
+                  <Link
+                    href={item === "Articles" ? "/articles" : `/#${item.toLowerCase()}`}
                     className="text-sm text-surface-500 hover:text-surface-900 transition-colors duration-200"
                   >
                     {item}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
