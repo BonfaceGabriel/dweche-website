@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import BrandLogo from "@/components/BrandLogo";
 
 
 const navLinks = [
@@ -64,13 +65,8 @@ export default function Navbar() {
     >
       <div className="max-w-site mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 lg:h-24">
-          <a href={linkHref("#home")} className="flex items-center gap-3 group">
-            <span className="text-xl font-semibold tracking-tight font-[family-name:var(--font-heading)] text-surface-900">
-              Dweche
-            </span>
-            <span className="text-[10px] uppercase tracking-[0.2em] text-blue-600 font-[family-name:var(--font-body)]">
-              Africa
-            </span>
+          <a href={linkHref("#home")} aria-label="Dweche Africa home" className="inline-flex shrink-0 rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600">
+            <BrandLogo priority />
           </a>
 
           <nav className="hidden lg:flex items-center gap-1">
