@@ -1,7 +1,7 @@
 ---
 title: "From AI Agents That Answer to Agents That Act"
-description: "What our BI agent taught us about the gap between answering questions and completing real tasks—and why our next build focuses on Kenyan insurers."
-author: "Dweche AI"
+description: "What our BI agent taught us about the gap between answering questions and completing real tasks, and why our next build focuses on Kenyan insurers."
+author: "Dweche Africa"
 date: "2026-11-17"
 tags: ["Agentic AI", "InsurTech", "Kenya"]
 draft: false
