@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Articles
+
+Write posts as Markdown in `content/articles/`. Follow the
+[publishing guide](docs/publishing-articles.md) for creating a branch, opening a PR,
+publishing a post, and sharing its generated preview on LinkedIn.
+
 ## Brand assets
 
 The supplied official artwork is preserved in `src/assets/brand/logo-original.png`.

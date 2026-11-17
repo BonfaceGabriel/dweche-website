@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
+import { formatArticleDate, getArticles } from "@/lib/articles";
 
 const title = "Articles";
 const description =
@@ -27,6 +28,7 @@ export const metadata: Metadata = {
 };
 
 export default function ArticlesPage() {
+  const articles = getArticles();
   return (
     <>
       <Navbar />
@@ -56,6 +58,27 @@ export default function ArticlesPage() {
             <h2 id="latest-articles" className="text-3xl sm:text-4xl font-[family-name:var(--font-heading)] tracking-tight">Latest articles</h2>
             <span className="text-sm text-surface-500">From the team at Dweche Africa</span>
           </div>
+          {articles.length > 0 ? (
+            <div className="grid gap-6 md:grid-cols-2">
+              {articles.map((article) => (
+                <article key={article.slug} className="flex flex-col rounded-2xl border border-surface-200 bg-white p-6 sm:p-8 transition-shadow hover:shadow-primary-sm">
+                  <p className="mb-5 text-xs font-semibold uppercase tracking-[0.15em] text-blue-600">{article.tags[0] || "Insights"}</p>
+                  <h3 className="text-3xl font-[family-name:var(--font-heading)] leading-tight tracking-tight">
+                    <Link href={`/articles/${article.slug}`} className="hover:text-blue-600">{article.title}</Link>
+                  </h3>
+                  <p className="mt-4 flex-1 text-base leading-relaxed text-surface-600">{article.description}</p>
+                  <div className="mt-6 flex flex-wrap gap-x-3 gap-y-1 text-sm text-surface-500">
+                    <time dateTime={article.date}>{formatArticleDate(article.date)}</time>
+                    <span aria-hidden="true">·</span><span>{article.readingMinutes} min read</span>
+                  </div>
+                  <p className="mt-2 text-sm text-surface-600">By {article.author}</p>
+                  <Link href={`/articles/${article.slug}`} className="mt-6 self-start text-sm font-semibold text-blue-600 hover:underline" aria-label={`Read ${article.title}`}>
+                    Read article <span aria-hidden="true">&rarr;</span>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          ) : (
           <div className="rounded-2xl border border-surface-200 bg-surface-50 px-6 py-16 text-center sm:px-12 sm:py-20">
             <svg aria-hidden="true" viewBox="0 0 48 48" fill="none" className="mx-auto mb-6 h-12 w-12 text-blue-600">
               <rect x="10" y="6" width="28" height="36" rx="3" stroke="currentColor" strokeWidth="1.5" />
@@ -69,6 +92,7 @@ export default function ArticlesPage() {
               Explore our work <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
+          )}
         </section>
       </main>
       <Footer />

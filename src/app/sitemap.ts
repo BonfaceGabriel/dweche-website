@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getArticles } from "@/lib/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = "https://dweche.africa";
@@ -15,5 +16,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.7,
     },
+    ...getArticles().map((article) => ({
+      url: `${siteUrl}/articles/${article.slug}`,
+      lastModified: new Date(`${article.date}T12:00:00Z`),
+      priority: 0.6,
+    })),
   ];
 }
