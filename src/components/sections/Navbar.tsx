@@ -66,7 +66,7 @@ export default function Navbar() {
       <div className="max-w-site mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 lg:h-24">
           <a href={linkHref("#home")} aria-label="Dweche Africa home" className="inline-flex shrink-0 rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600">
-            <BrandLogo priority />
+            <BrandLogo priority transparent />
           </a>
 
           <nav className="hidden lg:flex items-center gap-1">

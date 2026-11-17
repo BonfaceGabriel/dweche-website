@@ -4,6 +4,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 The supplied official artwork is preserved in `src/assets/brand/logo-original.png`.
 The shared `src/components/BrandLogo.tsx` displays it in the header and footer.
+The header uses the background-removed `public/logo-transparent.png` variant
+so the page background shows through; the footer uses `public/logo.png`.
 
 Run `npm run brand:assets` to regenerate the cropped wordmark, 1200 × 630 sharing
 image, browser icons, and Apple icon. The script uses the original pixels, with
