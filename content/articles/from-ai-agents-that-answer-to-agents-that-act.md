@@ -5,6 +5,34 @@ author: "Dweche Africa"
 date: "2026-11-17"
 tags: ["Agentic AI", "InsurTech", "Kenya"]
 draft: false
+linkedinPost: |
+  AI agents are getting easier to build. Getting them into production is still the hard part.
+
+  A few figures that caught my attention:
+
+  🔌 97 million monthly MCP SDK downloads in March 2026, with 10,000+ public servers connecting agents to tools.
+
+  💸 Frontier model token prices fell 30–60% through 2025, while prompt caching can cut repeated-prompt costs by 50–90%.
+
+  📈 Enterprise inquiries about AI agents surged 1,445% between Q1 2024 and Q2 2025.
+
+  But here’s the gap: 79% of organizations report some agentic AI adoption, while only 31% have an agent in production—and just 21% have mature governance for autonomous agents.
+
+  We’ve lived a small version of that gap.
+
+  At Dweche AI, our BI agent for BF SUMA Eagle Shop answered management’s sales questions. Useful—but it couldn’t act independently or serve many users at once.
+
+  Our next build raises the bar: helping Kenyan insurance customers request motor cover on WhatsApp, get a quote, pay through M-Pesa, and receive their certificate.
+
+  The frameworks handle more of the plumbing. Our work is making local integrations, multi-user reliability, and human oversight work together.
+
+  I’ve shared the lessons and sources in the full article:
+
+  https://dweche.africa/articles/from-ai-agents-that-answer-to-agents-that-act
+
+  If you work in insurance or fintech in Kenya, what would you want an agent to handle first?
+
+  #AgenticAI #Kenya #InsurTech #MCP #DwecheAI
 ---
 
 **Two years ago, building an AI agent meant hand-writing glue code for every tool, API, and database it touched. Today, a lot of that is plug-and-play.**

@@ -26,6 +26,14 @@ test("drafts and invalid URL paths cannot be retrieved", () => {
   assert.equal(getArticle("a-post-that-does-not-exist"), undefined);
 });
 
+test("LinkedIn drafts are optional plain text and preserve line breaks", () => {
+  assert.equal(parseArticle("a-title", source("draft: false")).linkedinPost, undefined);
+  const article = parseArticle("a-title", source("draft: false\nlinkedinPost: |\n  A hook.\n\n  A takeaway."));
+  assert.equal(article.linkedinPost, "A hook.\n\nA takeaway.");
+  assert.throws(() => parseArticle("a-title", source("draft: false\nlinkedinPost: [invalid]")), /linkedinPost/);
+  assert.match(getArticle("from-ai-agents-that-answer-to-agents-that-act").linkedinPost, /97 million/);
+});
+
 test("publishing requires an explicit draft flag and valid metadata", () => {
   assert.throws(() => parseArticle("a-title", source()), /draft/);
   assert.throws(() => parseArticle("a-title", source("draft: false").replace('"2026-11-17"', '"2026-02-30"')), /date/);

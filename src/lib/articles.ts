@@ -14,6 +14,7 @@ export type Article = {
   tags: string[];
   readingMinutes: number;
   content: string;
+  linkedinPost?: string;
 };
 
 export function parseArticle(slug: string, source: string): Article | null {
@@ -36,11 +37,14 @@ export function parseArticle(slug: string, source: string): Article | null {
     throw new Error(`${slug}: tags must be a list of strings`);
   }
   if (!content.trim()) throw new Error(`${slug}: article body is empty`);
+  if (data.linkedinPost !== undefined && typeof data.linkedinPost !== "string") {
+    throw new Error(`${slug}: linkedinPost must be plain text`);
+  }
   return {
     slug, title: data.title.trim(), description: data.description.trim(),
     author: data.author.trim(), date, tags: data.tags,
     readingMinutes: Math.max(1, Math.ceil(content.trim().split(/\s+/).length / 200)),
-    content,
+    content, linkedinPost: data.linkedinPost?.trim() || undefined,
   };
 }
 

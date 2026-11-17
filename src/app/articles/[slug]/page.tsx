@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
+import LinkedInShare from "@/components/LinkedInShare";
 import { formatArticleDate, getArticle, getArticles } from "@/lib/articles";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -67,7 +68,7 @@ export default async function ArticlePage({ params }: Props) {
           </div>
           <footer className="mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-surface-200 pt-8">
             <Link href="/articles" className="text-sm font-medium text-blue-600 hover:underline">&larr; More from Dweche Africa</Link>
-            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700">Share on LinkedIn <span className="sr-only">(opens a new tab)</span></a>
+            <LinkedInShare title={article.title} description={article.description} url={url} previewImage={`/articles/${slug}/opengraph-image`} linkedinPost={article.linkedinPost} />
           </footer>
         </article>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
